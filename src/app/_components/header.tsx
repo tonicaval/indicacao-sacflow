@@ -23,7 +23,7 @@ function Header() {
   }, [scrolled]);
 
   return (
-    <header className={`sticky top-0 z-10 h-[72px] w-full bg-white ${scrolled ? "border-b border-gray-200 shadow-xl shadow-slate-900/5" : ""}`}>
+    <header className={`sticky top-0 z-10 h-[72px] w-full bg-white ${scrolled ? "border-b border-gray-200 shadow-xl shadow-slate-900/5 bg-white/60 backdrop-blur-2xl" : ""}`}>
       <div className={`container px-8 flex items-center justify-between h-full`}>      
         <Image src={logo} height={0} width={0} id="logo" alt='Logo Sacflow'/>
         <div className='flex gap-4'>

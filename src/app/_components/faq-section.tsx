@@ -15,7 +15,7 @@ function FaqSection() {
         </h2>
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
-            <AccordionTrigger className="select-none text-xl text-black hover:no-underline	">
+            <AccordionTrigger className="select-none text-xl font-semibold text-black hover:no-underline	">
               Como vou receber minha recompensa?
             </AccordionTrigger>
             <AccordionContent className=" text-base text-black hover:no-underline">
@@ -23,7 +23,7 @@ function FaqSection() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="select-none text-xl text-black hover:no-underline">
+            <AccordionTrigger className="select-none text-xl font-semibold text-black hover:no-underline">
               Quanto tempo leva para receber minha recompensa?
             </AccordionTrigger>
             <AccordionContent className=" text-base text-black hover:no-underline">
@@ -31,7 +31,7 @@ function FaqSection() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="select-none text-xl text-black hover:no-underline">
+            <AccordionTrigger className="select-none text-xl font-semibold text-black hover:no-underline">
               Como saberei se meu indicado fechou negócio?
             </AccordionTrigger>
             <AccordionContent className=" text-base text-black">
@@ -41,7 +41,7 @@ function FaqSection() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-4 ">
-            <AccordionTrigger className="select-none text-xl text-black hover:no-underline">
+            <AccordionTrigger className="select-none text-xl font-semibold text-black hover:no-underline">
               Como posso falar do Sacflow?
             </AccordionTrigger>
             <AccordionContent className=" text-base text-black">

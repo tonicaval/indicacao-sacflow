@@ -16,7 +16,8 @@ span,
 a,
 ul,
 li, 
-label {
+label,
+button {
   font-family: var(--font-inter);
 }
 
