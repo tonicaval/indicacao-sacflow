@@ -13,13 +13,14 @@ function HeroSection() {
             alt="illustration"
             width={0}
             height={302}
+            placeholder='blur'
           />
 
           <h2 className="text-center font-prompt text-[40px] font-bold leading-[48px] text-black">
             Indique o Sacflow e ganhe!
           </h2>
 
-          <p className="text-center font-[Inter] text-[24px] leading-9 text-black">
+          <p className="text-center font-inter text-[24px] leading-9 text-black">
             Você ganhará{' '}
             <span className="font-bold">
               <Image

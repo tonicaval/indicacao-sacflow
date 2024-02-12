@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='br' className={`${inter.className} ${prompt.className}`}>
+    <html lang='br' className={`${inter.variable} ${prompt.variable}`}>
       <body >
         <Header/>
         {children}

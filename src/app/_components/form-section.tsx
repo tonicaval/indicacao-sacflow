@@ -8,7 +8,7 @@ function FormSection() {
   const inputClassName =
     'mt-1 block w-full px-3 py-3 bg-white border border-slate-300 rounded-lg text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-blue-500 border-2';
 
-  const labelTextInput = 'font-[Inter] text-base font-medium text-black';
+  const labelTextInput = 'font-inter text-base font-medium text-black';
 
   const Root = ({ children, className }: IComponentsProps) => (
     <div className={cn('gap-0.25 flex w-full flex-col items-start justify-start', className)}>
@@ -17,7 +17,9 @@ function FormSection() {
   );
 
   const Label = ({ children, className }: IComponentsProps) => (
-    <label className={cn(' text-[14px] font-inter font-medium text-black', className)}>{children}</label>
+    <label className={cn(' font-inter text-[14px] font-medium text-black', className)}>
+      {children}
+    </label>
   );
 
   const Input = ({
@@ -95,13 +97,13 @@ function FormSection() {
             </span>
             <Link
               href="/"
-              className="font-[Inter] text-base font-medium leading-tight text-black underline"
+              className="font-inter text-base font-medium leading-tight text-black underline"
             >
               termos e condições
             </Link>
           </div>
           <button className="hover:bg-gray-00 inline-flex h-12 items-center justify-center gap-2 self-stretch rounded-3xl bg-black px-4 py-2">
-            <span className="text-center font-[Inter] text-base font-semibold text-white">
+            <span className="text-center font-inter text-base font-semibold text-white">
               Recomendar
             </span>
           </button>
