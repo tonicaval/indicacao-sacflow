@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { Prompt } from 'next/font/google';
+import { Inter,Prompt } from 'next/font/google';
 import './globals.css';
 import Header from './_components/header';
 import Footer from './_components/footer';
@@ -19,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='br'>
-      <body className={`${inter.className} ${prompt.className}`}>
+    <html lang='br' className={`${inter.className} ${prompt.className}`}>
+      <body >
         <Header/>
         {children}
         <Footer/>

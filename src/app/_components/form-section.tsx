@@ -17,7 +17,7 @@ function FormSection() {
   );
 
   const Label = ({ children, className }: IComponentsProps) => (
-    <label className={cn(' text-[14px] font-medium text-black', className)}>{children}</label>
+    <label className={cn(' text-[14px] font-inter font-medium text-black', className)}>{children}</label>
   );
 
   const Input = ({
@@ -27,7 +27,7 @@ function FormSection() {
     <input
       {...rest}
       className={cn(
-        'mt-1 block w-full rounded-lg border border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none',
+        'mt-1 block w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none',
         className
       )}
     />
@@ -40,7 +40,7 @@ function FormSection() {
     <textarea
       {...rest}
       className={cn(
-        'mt-1 block h-[500px] w-full rounded-lg border border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none',
+        'mt-1 block h-[500px] w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none',
         className
       )}
     />
@@ -90,7 +90,7 @@ function FormSection() {
 
           <div className="inline-flex items-center justify-start gap-2 self-stretch py-2">
             <Checkbox />
-            <span className="font-[Inter] text-base font-medium leading-tight text-black">
+            <span className="font-inter text-base font-medium leading-tight text-black">
               Li e concordo com os{' '}
             </span>
             <Link

@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 function Footer() {
   return (
-    <footer className="flex h-fit flex-col items-start justify-between px-8 py-8 md:h-16 md:flex-row md:items-center md:py-0 ">
+    <footer className="container flex h-fit flex-col items-start justify-between px-8 py-8 md:h-16 md:flex-row md:items-center md:py-0">
       <div className="flex flex-col items-start gap-2 md:flex-row md:gap-8">
-        <span className='font-[Inter]'>2023 © Sacflow</span>
+        <span className="font-[Inter]">2023 © Sacflow</span>
         <Link className="font-[Inter] hover:underline" href="/">
           Termos de Serviço
         </Link>
