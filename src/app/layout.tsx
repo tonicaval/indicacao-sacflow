@@ -3,6 +3,7 @@ import { Inter,Prompt } from 'next/font/google';
 import './globals.css';
 import Header from './_components/header';
 import Footer from './_components/footer';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const prompt = Prompt({ weight: ['500', '600', '700', '800', '900'],subsets: ['latin'], variable: '--font-prompt' });
@@ -23,6 +24,7 @@ export default function RootLayout({
         <Header/>
         {children}
         <Footer/>
+        <Toaster />
       </body>
     </html>
   );
