@@ -141,6 +141,7 @@ function FormSection() {
             <Label>WhatsApp do indicado</Label>
             <InputMask
               mask="(99) 99999-9999"
+              placeholder="(99) 99999-8888"
               {...register('referWhatsapp')}
               className={cn(
                 'mt-1 block w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none'
