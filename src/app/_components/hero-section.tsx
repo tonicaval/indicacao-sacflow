@@ -35,7 +35,7 @@ function HeroSection() {
             por cada indicação que contratar o Sacflow para qualquer plano.
           </p>
 
-          <button className="flex h-12 items-center gap-2 rounded-full bg-black px-6 text-[14px] font-semibold text-white hover:bg-gray-800">
+          <button className="flex h-12 items-center gap-2 rounded-full bg-black px-6 text-[14px] font-semibold text-white hover:bg-gray-800 duration-300">
             Baixar material
           </button>
         </div>

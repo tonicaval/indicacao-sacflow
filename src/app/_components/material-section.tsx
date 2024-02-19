@@ -13,7 +13,7 @@ return (
     Este material vai te ajudar apresentar para o indicado o que é o Sacflow e o que é
     possível fazer com ele.
   </p>
-  <button className="flex h-12 items-center gap-2 rounded-full bg-black px-6 text-white hover:bg-gray-800">
+  <button className="flex h-12 items-center gap-2 rounded-full bg-black px-6 text-white hover:bg-gray-800 duration-300">
     <p className="text-[14px] font-semibold">Baixar material</p>
     <Image
       className="stroke-white"
