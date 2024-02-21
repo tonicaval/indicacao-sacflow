@@ -17,11 +17,17 @@ import { boolean, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputMask from 'react-input-mask';
 import FormSubmitSuccess from './form-submit-sucess';
+import { sacflow } from '@/services/sacflow';
 
 const referFormSchema = z
 .object({
   name: z.string().min(3, { message: 'O nome deve ter no mínimo 3 caracteres' }),
   email: z.string().email({ message: 'E-mail inválido' }),
+  whatsapp: z.string()
+  .min(15, { message: 'Número de WhatsApp inválido' })
+  .transform((referWhatsapp) => {
+    return referWhatsapp.replace(/\D/g, '');
+  }),
   referName: z.string().min(3, { message: 'O nome deve ter no mínimo 3 caracteres' }),
   referWhatsapp: z
     .string()
@@ -49,13 +55,20 @@ function FormSection() {
     mode: 'onBlur'
   });
 
-  console.log('errors >>>', errors);
   const errorEmail = errors.email;
   const [sendForm, setSendForm] = useState(false);
 
-  const submitRefer = (data: any) => {
+  const submitRefer = async(data: any) => {
     setSendForm(true);
-    console.log(data);
+
+    await fetch("/api/send-text", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+ 
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -95,7 +108,6 @@ function FormSection() {
       error?: boolean;
       message?: string;
     }) => {
-      console.log(nameInput,error, message)
       return(
     <>
       <input
@@ -169,6 +181,21 @@ function FormSection() {
                   error={Boolean(errors?.email)}
                   message={errors?.email?.message}
                 />
+              </Root>
+
+              <Root>
+                <Label>Seu WhatsApp</Label>
+                <InputMask
+                  mask="(99) 99999-9999"
+                  placeholder="(99) 99999-8888"
+                  {...register('whatsapp')}
+                  className={cn(
+                    `mt-1 block w-full rounded-lg border-2 border-slate-300 ${errors?.referWhatsapp ? 'invalid:border-red-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:border-2 border-red-500 focus:border-red-500' : ''} bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none`
+                  )}
+                />
+                {errors?.referWhatsapp && (
+                  <span className="text-sm text-red-500">{errors?.referWhatsapp?.message}</span>
+                )}
               </Root>
 
               <Root>
