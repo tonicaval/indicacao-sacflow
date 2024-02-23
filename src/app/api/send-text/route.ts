@@ -1,3 +1,4 @@
+import { createIssueCRM } from '@/services/linear';
 import { sacflow } from '@/services/sacflow';
 
 export async function POST(request: Request) {
@@ -32,7 +33,23 @@ ${res.referInfo}
 *Como conheceu:*
 ${res.howYouKnow}`;
 
-  await sacflowInstance.sendWhatsAppMessage({
+  const privateMessageLinear = `
+
+**Nome:** ${res.name}
+
+**E-mail:** ${res.email}
+
+**Nome do indicado:** ${res.referName}
+
+**E-mail do indicado:** ${res.referEmail}
+
+**WhatsApp do indicado:** ${res.referWhatsapp}
+
+**Detalhes:** ${res.referInfo}
+
+**Como conheceu:** ${res.howYouKnow}`;
+
+  const sendMessageSacflowPrivate = sacflowInstance.sendWhatsAppMessage({
     contact: {
       name: res.name,
       phone: `55${res.whatsapp}`
@@ -41,16 +58,21 @@ ${res.howYouKnow}`;
     isPrivate: true
   });
 
-  await sacflowInstance.sendWhatsAppMessage({
+  const sendMessageSacflowClient = sacflowInstance.sendWhatsAppMessage({
     contact: {
       name: res.name,
-      phone:  `55${res.whatsapp}`
+      phone: `55${res.whatsapp}`
     },
     message: `Oi, ${res.name}! Obrigado pela indicação ao Sacflow. 🎉
    
 Nossa equipe entrará em contato com o indicado. Se ele contratar o Sacflow, entraremos em contato com você para pagar a recompensa.`
   });
 
-  console.log('res', res);
+  const sendLinear = createIssueCRM({
+    title: `Indicação do Sacflow ${res.name}`,
+    description: privateMessageLinear
+  });
+
+  await Promise.allSettled([sendMessageSacflowClient, sendLinear, sendMessageSacflowPrivate]);
   return Response.json(res);
 }

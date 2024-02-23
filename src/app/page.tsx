@@ -4,7 +4,7 @@ import HeroSection from './_components/hero-section';
 import HowSection from './_components/how-section';
 import MaterialSection from './_components/material-section';
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <HeroSection />
