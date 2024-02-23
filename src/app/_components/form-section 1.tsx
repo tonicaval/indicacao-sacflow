@@ -18,20 +18,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import InputMask from 'react-input-mask';
 import FormSubmitSuccess from './form-submit-sucess';
 import { sacflow } from '@/services/sacflow';
-import { LinearClient } from '@linear/sdk'
+import { LinearClient } from '@linear/sdk';
 
 const client1 = new LinearClient({
-  apiKey: 'lin_api_fZHBNSIXlzxW2NyCsahNGyjmhoB2foBYZQXvkZML'})
+  apiKey: 'lin_api_fZHBNSIXlzxW2NyCsahNGyjmhoB2foBYZQXvkZML'
+});
 
-const referFormSchema = z
-.object({
+const referFormSchema = z.object({
   name: z.string().min(3, { message: 'O nome deve ter no mínimo 3 caracteres' }),
   email: z.string().email({ message: 'E-mail inválido' }),
-  whatsapp: z.string()
-  .min(15, { message: 'Número de WhatsApp inválido' })
-  .transform((referWhatsapp) => {
-    return referWhatsapp.replace(/\D/g, '');
-  }),
+  whatsapp: z
+    .string()
+    .min(15, { message: 'Número de WhatsApp inválido' })
+    .transform((referWhatsapp) => {
+      return referWhatsapp.replace(/\D/g, '');
+    }),
   referName: z.string().min(3, { message: 'O nome deve ter no mínimo 3 caracteres' }),
   referWhatsapp: z
     .string()
@@ -62,17 +63,17 @@ function FormSection() {
   const errorEmail = errors.email;
   const [sendForm, setSendForm] = useState(false);
 
-  const submitRefer = async(data: any) => {
+  const submitRefer = async (data: any) => {
     setSendForm(true);
 
-    await fetch("/api/send-text", {
-      method: "POST",
+    await fetch('/api/send-text', {
+      method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
-    })
- 
+    });
+
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -112,19 +113,20 @@ function FormSection() {
       error?: boolean;
       message?: string;
     }) => {
-      return(
-    <>
-      <input
-        {...register(`${nameInput}`)}
-        {...rest}
-        className={cn(
-          `mt-1 block w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none ${error ? 'invalid:border-red-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:border-2 border-red-500 focus:border-red-500' : ''}`,
-          className
-        )}
-      />
-      {error && <span className="text-sm text-red-500">{message}</span>}
-    </>
-  )};
+    return (
+      <>
+        <input
+          {...register(`${nameInput}`)}
+          {...rest}
+          className={cn(
+            `mt-1 block w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none ${error ? 'border-red-500 invalid:border-red-500 invalid:text-red-600 focus:border-red-500 focus:invalid:border-2 focus:invalid:border-red-500' : ''}`,
+            className
+          )}
+        />
+        {error && <span className="text-sm text-red-500">{message}</span>}
+      </>
+    );
+  };
 
   const TextArea = ({
     className,
@@ -143,7 +145,7 @@ function FormSection() {
         {...register(`${nameInput}`)}
         {...rest}
         className={cn(
-          `mt-1 block w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none ${error ? 'invalid:border-red-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:border-2 border-red-500 focus:border-red-500' : ''}`,
+          `mt-1 block w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none ${error ? 'border-red-500 invalid:border-red-500 invalid:text-red-600 focus:border-red-500 focus:invalid:border-2 focus:invalid:border-red-500' : ''}`,
           className
         )}
       />
@@ -163,7 +165,8 @@ function FormSection() {
             </h2>
             <form
               onSubmit={handleSubmit(submitRefer)}
-              className="flex h-fit w-full max-w-[600px] flex-col items-center justify-start gap-5 rounded-[32px] border-b border-indigo-200 bg-indigo-50 p-8 drop-shadow-2xl"
+              className="flex h-fit w-full max-w-[600px] flex-col items-center justify-start gap-5 rounded-3xl border-b border-indigo-200 bg-indigo-50 p-6 drop-shadow-2xl 
+              sm:rounded-[32px] sm:p-8"
             >
               <Root>
                 <Label>Seu nome</Label>
@@ -194,7 +197,7 @@ function FormSection() {
                   placeholder="(99) 99999-8888"
                   {...register('whatsapp')}
                   className={cn(
-                    `mt-1 block w-full rounded-lg border-2 border-slate-300 ${errors?.referWhatsapp ? 'invalid:border-red-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:border-2 border-red-500 focus:border-red-500' : ''} bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none`
+                    `mt-1 block w-full rounded-lg border-2 border-slate-300 ${errors?.referWhatsapp ? 'border-red-500 invalid:border-red-500 invalid:text-red-600 focus:border-red-500 focus:invalid:border-2 focus:invalid:border-red-500' : ''} bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none`
                   )}
                 />
                 {errors?.referWhatsapp && (
@@ -231,7 +234,7 @@ function FormSection() {
                   placeholder="(99) 99999-8888"
                   {...register('referWhatsapp')}
                   className={cn(
-                    `mt-1 block w-full rounded-lg border-2 border-slate-300 ${errors?.referWhatsapp ? 'invalid:border-red-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:border-2 border-red-500 focus:border-red-500' : ''} bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none`
+                    `mt-1 block w-full rounded-lg border-2 border-slate-300 ${errors?.referWhatsapp ? 'border-red-500 invalid:border-red-500 invalid:text-red-600 focus:border-red-500 focus:invalid:border-2 focus:invalid:border-red-500' : ''} bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none`
                   )}
                 />
                 {errors?.referWhatsapp && (

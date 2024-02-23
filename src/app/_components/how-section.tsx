@@ -8,7 +8,7 @@ function HowSection() {
   const labelTextInput = 'font-inter text-base font-medium text-black';
 
   return (
-    <section className="flex h-fit justify-center bg-white p-12">
+    <section className="flex h-fit justify-center bg-white px-6 py-12 md:p-12 ">
       <div className="flex max-w-[800px] flex-col items-center justify-start gap-10">
         <div className="text-center font-prompt text-5xl font-bold leading-[56px] text-black">
           Como funciona?
