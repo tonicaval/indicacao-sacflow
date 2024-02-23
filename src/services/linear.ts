@@ -1,7 +1,7 @@
 import { LinearClient, LinearFetch, User } from '@linear/sdk';
 
 const linearClient = new LinearClient({
-  apiKey: 'lin_api_SutfMQhC0aGiuen8YH0MvbyQvyQXM4G30XuAN9PY'
+  apiKey: 'lin_api_rCC7ZdYhUfnNt2bNqTS0qrEKMb5XEg2j3Z5YGfVG'
 });
 
 interface Iteams {
@@ -11,7 +11,6 @@ interface Iteams {
 
 export const createIssueCRM = async ({ description, title }: Iteams) => {
   try {
-  
     await linearClient.createIssue({
       teamId: "08152509-779e-4e28-9bd1-0b4177e40670",
       title,

@@ -12,6 +12,7 @@ export default async function Home() {
       <FormSection />
       <FaqSection />
       <MaterialSection />
+    
     </>
   );
 }

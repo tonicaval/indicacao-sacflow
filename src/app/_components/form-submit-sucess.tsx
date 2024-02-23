@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import successCircle from '/src/app/success-circle.svg';
+import { ConfettiComponents } from '@/components/conffeti';
 
 interface IformSubmitSuccess {
   setSendForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,6 +10,7 @@ interface IformSubmitSuccess {
 function FormSubmitSuccess({ setSendForm }: IformSubmitSuccess) {
   return (
     <>
+      <ConfettiComponents />
       <div className="flex h-fit w-full max-w-[600px] flex-col items-center justify-start gap-5 rounded-[32px] border-b border-indigo-200 bg-indigo-50 p-8 drop-shadow-2xl">
         <Image src={successCircle} alt="Check" width={88} height={88} />
         <div className="text-center font-['Prompt'] text-5xl font-bold leading-[56px] text-black">
