@@ -1,7 +1,8 @@
 import { LinearClient, LinearFetch, User } from '@linear/sdk';
+import { ENV } from '../../config';
 
 const linearClient = new LinearClient({
-  apiKey: 'lin_api_rCC7ZdYhUfnNt2bNqTS0qrEKMb5XEg2j3Z5YGfVG'
+  apiKey: ENV.LINEAR_KEY
 });
 
 interface Iteams {
