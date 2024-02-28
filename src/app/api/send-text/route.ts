@@ -12,26 +12,16 @@ export async function POST(request: Request) {
 
   const privateMessage = `*Nova indicação para o Sacflow:*
 
-*Nome:* 
-${res.name}
+*Nome:* ${res.name}
+*E-mail:* ${res.email}
+*Nome do indicado:* ${res.referName}
+*E-mail do indicado:* ${res.referEmail}
+*WhatsApp do indicado:* ${res.referWhatsapp}
+*Como conheceu:* 
+${res.howYouKnow}
 
-*E-mail:*
-${res.email}
-
-*Nome do indicado:*
-${res.referName}
-
-*E-mail do indicado:*
-${res.referEmail}
-
-*WhatsApp do indicado:*
-${res.referWhatsapp}
-
-*Detalhes:*
-${res.referInfo}
-
-*Como conheceu:*
-${res.howYouKnow}`;
+*Detalhes:* 
+${res.referInfo}`;
 
   const privateMessageLinear = `
 
@@ -55,7 +45,9 @@ ${res.howYouKnow}`;
       phone: `55${res.whatsapp}`
     },
     message: privateMessage,
-    isPrivate: true
+    isPrivate: true,
+    queueId: 2,
+    tagId: 1670
   });
 
   const sendMessageSacflowClient = sacflowInstance.sendWhatsAppMessage({

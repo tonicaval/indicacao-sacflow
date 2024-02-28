@@ -9,11 +9,11 @@ interface IformSubmitSuccess {
 
 function FormSubmitSuccess({ setSendForm }: IformSubmitSuccess) {
   return (
-    <section className='bg-white h-[1000px] flex items-center justify-center'>
+    <section className='bg-white flex py-14 items-center justify-center'>
       <ConfettiComponents />
       <div className="flex h-fit w-full max-w-[600px] flex-col items-center justify-start gap-5 rounded-[32px] border-b border-indigo-200 bg-indigo-50 p-8 drop-shadow-2xl">
         <Image src={successCircle} alt="Check" width={88} height={88} />
-        <div className="text-center font-['Prompt'] text-5xl font-bold leading-[56px] text-black">
+        <div className="text-center font-prompt text-5xl font-bold leading-[56px] text-black">
           Obrigado!
         </div>
         <div className="self-stretch text-center font-inter text-xl font-normal leading-8 text-black">

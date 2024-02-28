@@ -9,7 +9,7 @@ const formatTelefone = (value: string) => {
 import { IComponentsProps } from '@/interfaces/componentProps';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { ComponentProps, useState } from 'react';
+import { ComponentProps, useRef, useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useForm } from 'react-hook-form';
 import { toast } from '@/components/ui/use-toast';
@@ -17,6 +17,8 @@ import { boolean, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputMask from 'react-input-mask';
 import FormSubmitSuccess from './form-submit-sucess';
+
+
 
 const referFormSchema = z.object({
   name: z.string().min(3, { message: 'O nome deve ter no mínimo 3 caracteres' }),
@@ -42,7 +44,78 @@ const referFormSchema = z.object({
 
 type ReferFormSchema = z.infer<typeof referFormSchema>;
 
+const Root = ({ children, className }: IComponentsProps) => (
+  <div className={cn('gap-0.25 flex w-full flex-col items-start justify-start', className)}>
+    {children}
+  </div>
+);
+
+const Label = ({ children, className }: IComponentsProps) => (
+  <label className={cn(' font-inter text-[14px] font-medium text-black', className)}>
+    {children}
+  </label>
+);
+
+const Input = ({
+  className,
+  nameInput,
+  error,
+  message,
+  register,
+  ...rest
+}: Omit<IComponentsProps, 'children'> &
+  ComponentProps<'input'> & {
+    nameInput: keyof ReferFormSchema;
+    error?: boolean;
+    message?: string;
+    register: any;
+  }) => {
+  return (
+    <>
+      <input
+        {...register(`${nameInput}`)}
+        {...rest}
+        className={cn(
+          `mt-1 block w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none ${error ? 'border-red-500 invalid:border-red-500 invalid:text-red-600 focus:border-red-500 focus:invalid:border-2 focus:invalid:border-red-500' : ''}`,
+          className
+        )}
+      />
+      {error && <span className="text-sm text-red-500">{message}</span>}
+    </>
+  );
+};
+
+const TextArea = ({
+  className,
+  nameInput,
+  error,
+  message,
+  register,
+  ...rest
+}: Omit<IComponentsProps, 'children'> &
+  ComponentProps<'textarea'> & {
+    nameInput: keyof ReferFormSchema;
+    error?: boolean;
+    message?: string;
+    register:any
+  }) => (
+  <>
+    <textarea
+      {...register(`${nameInput}`)}
+      {...rest}
+      className={cn(
+        `mt-1 block w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none ${error ? 'border-red-500 invalid:border-red-500 invalid:text-red-600 focus:border-red-500 focus:invalid:border-2 focus:invalid:border-red-500' : ''}`,
+        className
+      )}
+    />
+    {error && <span className="text-sm text-red-500">{message}</span>}
+  </>
+);
+
+
+
 function FormSection() {
+  const targetSectionRef = useRef<HTMLDivElement>(null);
   const {
     register,
     handleSubmit,
@@ -58,8 +131,6 @@ function FormSection() {
   const [sendForm, setSendForm] = useState(false);
 
   const submitRefer = async (data: any) => {
-    setSendForm(true);
-
     await fetch('/api/send-text', {
       method: 'POST',
       body: JSON.stringify(data),
@@ -76,7 +147,14 @@ function FormSection() {
     //     </pre>
     //   )
     // });
-
+    setSendForm(true);
+    
+    if (targetSectionRef.current) {
+      targetSectionRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start', // ou 'end' para rolar para o final da seção
+      });
+    }
     reset();
   };
 
@@ -84,72 +162,12 @@ function FormSection() {
     'mt-1 block w-full px-3 py-3 bg-white border border-slate-300 rounded-lg text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-blue-500 border-2';
   const labelTextInput = 'font-inter text-base font-semibold text-black';
 
-  const Root = ({ children, className }: IComponentsProps) => (
-    <div className={cn('gap-0.25 flex w-full flex-col items-start justify-start', className)}>
-      {children}
-    </div>
-  );
 
-  const Label = ({ children, className }: IComponentsProps) => (
-    <label className={cn(' font-inter text-[14px] font-medium text-black', className)}>
-      {children}
-    </label>
-  );
 
-  const Input = ({
-    className,
-    nameInput,
-    error,
-    message,
-    ...rest
-  }: Omit<IComponentsProps, 'children'> &
-    ComponentProps<'input'> & {
-      nameInput: keyof ReferFormSchema;
-      error?: boolean;
-      message?: string;
-    }) => {
-    return (
-      <>
-        <input
-          {...register(`${nameInput}`)}
-          {...rest}
-          className={cn(
-            `mt-1 block w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none ${error ? 'border-red-500 invalid:border-red-500 invalid:text-red-600 focus:border-red-500 focus:invalid:border-2 focus:invalid:border-red-500' : ''}`,
-            className
-          )}
-        />
-        {error && <span className="text-sm text-red-500">{message}</span>}
-      </>
-    );
-  };
-
-  const TextArea = ({
-    className,
-    nameInput,
-    error,
-    message,
-    ...rest
-  }: Omit<IComponentsProps, 'children'> &
-    ComponentProps<'textarea'> & {
-      nameInput: keyof ReferFormSchema;
-      error?: boolean;
-      message?: string;
-    }) => (
-    <>
-      <textarea
-        {...register(`${nameInput}`)}
-        {...rest}
-        className={cn(
-          `mt-1 block w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-3 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none ${error ? 'border-red-500 invalid:border-red-500 invalid:text-red-600 focus:border-red-500 focus:invalid:border-2 focus:invalid:border-red-500' : ''}`,
-          className
-        )}
-      />
-      {error && <span className="text-sm text-red-500">{message}</span>}
-    </>
-  );
+  
 
   return (
-    <section className="flex h-fit flex-col items-center justify-center bg-white py-12">
+    <section ref={targetSectionRef} className="flex h-fit flex-col items-center justify-center bg-white py-12">
       <div className=" flex w-full max-w-[648px] flex-col items-center justify-center gap-6 px-4">
         {sendForm ? (
           <FormSubmitSuccess setSendForm={setSendForm} />
@@ -167,6 +185,7 @@ function FormSection() {
                 <Label>Seu nome</Label>
                 <Input
                   type="text"
+                  register={register}
                   nameInput="name"
                   placeholder="Nome completo"
                   error={Boolean(errors?.name)}
@@ -178,6 +197,7 @@ function FormSection() {
                 <Label>Seu email</Label>
                 <Input
                   type="email"
+                  register={register}
                   nameInput="email"
                   placeholder="E-mail"
                   error={Boolean(errors?.email)}
@@ -204,6 +224,7 @@ function FormSection() {
                 <Label>Nome do indicado</Label>
                 <Input
                   type="text"
+                  register={register}
                   nameInput="referName"
                   placeholder="Nome"
                   error={Boolean(errors?.referName)}
@@ -215,6 +236,7 @@ function FormSection() {
                 <Label>E-mail do indicado</Label>
                 <Input
                   type="email"
+                  register={register}
                   nameInput="referEmail"
                   placeholder="E-mail"
                   error={Boolean(errors?.referEmail)}
@@ -241,6 +263,7 @@ function FormSection() {
                 <Label>Detalhes</Label>
                 <TextArea
                   nameInput="referInfo"
+                  register={register}
                   placeholder="Diga algo que precisamos saber sobre esta empresa..."
                   error={Boolean(errors?.referInfo)}
                   message={errors?.referInfo?.message}
@@ -251,6 +274,7 @@ function FormSection() {
                 <Label>Como você conhece eles?</Label>
                 <TextArea
                   nameInput="howYouKnow"
+                  register={register}
                   placeholder="Sobre a sua relação com essa empresa..."
                   error={Boolean(errors?.howYouKnow)}
                   message={errors?.howYouKnow?.message}
