@@ -9,16 +9,15 @@ const formatTelefone = (value: string) => {
 import { IComponentsProps } from '@/interfaces/componentProps';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { ComponentProps, useRef, useState } from 'react';
+import React, { ComponentProps, useRef, useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useForm } from 'react-hook-form';
-import { toast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
 import { boolean, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputMask from 'react-input-mask';
 import FormSubmitSuccess from './form-submit-sucess';
-
-
+import { IconLoader2 } from '@tabler/icons-react';
 
 const referFormSchema = z.object({
   name: z.string().min(3, { message: 'O nome deve ter no mínimo 3 caracteres' }),
@@ -97,7 +96,7 @@ const TextArea = ({
     nameInput: keyof ReferFormSchema;
     error?: boolean;
     message?: string;
-    register:any
+    register: any;
   }) => (
   <>
     <textarea
@@ -112,14 +111,14 @@ const TextArea = ({
   </>
 );
 
-
-
 function FormSection() {
   const targetSectionRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  // const checkboxRef = React.useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
-    setValue,
     reset,
     formState: { errors }
   } = useForm<ReferFormSchema>({
@@ -131,6 +130,8 @@ function FormSection() {
   const [sendForm, setSendForm] = useState(false);
 
   const submitRefer = async (data: any) => {
+    setIsLoading(true);
+
     await fetch('/api/send-text', {
       method: 'POST',
       body: JSON.stringify(data),
@@ -148,26 +149,26 @@ function FormSection() {
     //   )
     // });
     setSendForm(true);
-    
+
     if (targetSectionRef.current) {
       targetSectionRef.current.scrollIntoView({
         behavior: 'smooth',
-        block: 'start', // ou 'end' para rolar para o final da seção
+        block: 'start' // ou 'end' para rolar para o final da seção
       });
     }
     reset();
   };
 
-  const inputClassName =
-    'mt-1 block w-full px-3 py-3 bg-white border border-slate-300 rounded-lg text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-blue-500 border-2';
-  const labelTextInput = 'font-inter text-base font-semibold text-black';
-
-
-
-  
+  // const inputClassName =
+  //   'mt-1 block w-full px-3 py-3 bg-white border border-slate-300 rounded-lg text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-blue-500 border-2';
+  // const labelTextInput = 'font-inter text-base font-semibold text-black';
 
   return (
-    <section ref={targetSectionRef} className="flex h-fit flex-col items-center justify-center bg-white py-12">
+    <section
+      ref={targetSectionRef}
+      id="form"
+      className="flex h-fit flex-col items-center justify-center bg-white py-12"
+    >
       <div className=" flex w-full max-w-[648px] flex-col items-center justify-center gap-6 px-4">
         {sendForm ? (
           <FormSubmitSuccess setSendForm={setSendForm} />
@@ -281,28 +282,38 @@ function FormSection() {
                 ></TextArea>
               </Root>
 
-              <div className="inline-flex items-center justify-start gap-2 self-stretch py-2">
-                <Checkbox />
-                <div className="">
+              <label
+                className="inline-flex items-center justify-start gap-2 self-stretch py-2"
+                htmlFor="politica"
+              >
+                <Checkbox id="politica" />
+                <div>
                   <span className="font-inter text-base font-medium leading-tight text-black">
                     Li e concordo com os{' '}
                   </span>
                   <Link
-                    href="/"
+                    href="https://sacflow.io/politica-de-privacidade-e-termos-de-uso"
+                    target='_blank'
                     className="font-inter text-base font-medium leading-tight text-black underline"
                   >
                     termos e condições
                   </Link>
                 </div>
-              </div>
-              <button
+              </label>
+
+              <Button
                 type="submit"
+                disabled={isLoading}
                 className="inline-flex h-12 items-center justify-center gap-2 self-stretch rounded-3xl bg-black px-4 py-2 duration-300 hover:bg-gray-800"
               >
-                <span className="text-center font-inter text-base font-semibold text-white ">
-                  Recomendar
-                </span>
-              </button>
+                {isLoading ? (
+                  <IconLoader2 className="h-6 w-6 animate-spin" />
+                ) : (
+                  <span className="text-center font-inter text-base font-semibold text-white ">
+                    Recomendar
+                  </span>
+                )}
+              </Button>
             </form>
           </>
         )}

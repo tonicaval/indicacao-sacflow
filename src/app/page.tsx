@@ -11,7 +11,7 @@ export default async function Home() {
       <HowSection />
       <FormSection />
       <FaqSection />
-      <MaterialSection />
+      {/* <MaterialSection /> */}
     
     </>
   );

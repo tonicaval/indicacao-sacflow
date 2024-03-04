@@ -39,32 +39,36 @@ ${res.referInfo}`;
 
 **Como conheceu:** ${res.howYouKnow}`;
 
-  const sendMessageSacflowPrivate = sacflowInstance.sendWhatsAppMessage({
-    contact: {
-      name: res.name,
-      phone: `55${res.whatsapp}`
-    },
-    message: privateMessage,
-    isPrivate: true,
-    queueId: 2,
-    tagId: 1670
-  });
-
-  const sendMessageSacflowClient = sacflowInstance.sendWhatsAppMessage({
-    contact: {
-      name: res.name,
-      phone: `55${res.whatsapp}`
-    },
-    message: `Oi, ${res.name}! Obrigado pela indicação ao Sacflow. 🎉
-   
+  try {
+    await sacflowInstance.sendWhatsAppMessage({
+      queueId: 2,
+      contact: {
+        name: res.name,
+        phone: `55${res.whatsapp}`
+      },
+      message: `Oi, ${res.name}! Obrigado pela indicação ao Sacflow. 🎉
+ 
 Nossa equipe entrará em contato com o indicado. Se ele contratar o Sacflow, entraremos em contato com você para pagar a recompensa.`
-  });
+    });
 
-  const sendLinear = createIssueCRM({
+    await sacflowInstance.sendWhatsAppMessage({
+      contact: {
+        name: res.name,
+        phone: `55${res.whatsapp}`
+      },
+      message: privateMessage,
+      isPrivate: true,
+      queueId: 2,
+      tagId: 1670
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  await createIssueCRM({
     title: `Indicação do Sacflow ${res.name}`,
     description: privateMessageLinear
   });
 
-  await Promise.allSettled([sendMessageSacflowClient, sendLinear, sendMessageSacflowPrivate]);
   return Response.json(res);
 }

@@ -1,8 +1,11 @@
 import Image from 'next/image';
 import illustrationMoney from '/public/illustration-money.png';
 import sketch1 from '/public/sketch-1.svg';
+import { Button } from 'react-scroll';
+import Link from 'next/link';
 
 function HeroSection() {
+
   return (
     <section className="h-fit w-full">
       <div className="flex h-fit w-full flex-col items-center justify-center bg-teal-100 py-12">
@@ -13,7 +16,7 @@ function HeroSection() {
             alt="illustration"
             width={0}
             height={302}
-            placeholder='blur'
+            placeholder="blur"
           />
 
           <h2 className="text-center font-prompt text-[40px] font-bold leading-[48px] text-black">
@@ -35,9 +38,10 @@ function HeroSection() {
             por cada indicação que contratar o Sacflow para qualquer plano.
           </p>
 
-          <button className="flex h-12 items-center gap-2 rounded-full bg-black px-6 text-[14px] font-semibold text-white hover:bg-gray-800 duration-300">
-            Baixar material
-          </button>
+
+          <Link href="/#form" className="flex h-12 items-center gap-2 rounded-full bg-black px-6 text-[14px] font-semibold text-white duration-300 hover:bg-gray-800">
+            Fazer indicação
+          </Link>
         </div>
       </div>
     </section>

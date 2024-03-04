@@ -52,8 +52,7 @@ function HowSection() {
             <Image src={star1} alt="illustration" width={0} height={24} />
           </div>
           <div className="leading-2 shrink grow basis-0 font-inter text-xl text-black">
-            Preencha o formulário de indicação abaixo fornecendo os detalhes de indivíduos ou
-            empresas que você acha que encontrariam valor em nossos serviços.
+          Depois de fazer sua primeira recomendação, te enviaremos o material de divulgação 😉
           </div>
         </div>
       </div>
